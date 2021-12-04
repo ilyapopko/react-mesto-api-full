@@ -1,0 +1,40 @@
+{
+  "name": "express-mesto",
+  "version": "1.0.0",
+  "description": "Practical work No. 13 for Yandex.Workshop",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "lint": "npx eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilyapopko/express-mesto.git"
+  },
+  "author": "Ilya Popko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ilyapopko/express-mesto/issues"
+  },
+  "homepage": "https://github.com/ilyapopko/express-mesto#readme",
+  "dependencies": {
+    "-": "^0.0.1",
+    "bcryptjs": "^2.4.3",
+    "celebrate": "^15.0.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "joi": "^17.4.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^4.1.4",
+    "mongoose": "^6.0.12",
+    "validator": "^13.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.3",
+    "nodemon": "^2.0.15"
+  }
+}
