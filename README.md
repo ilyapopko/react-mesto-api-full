@@ -19,17 +19,8 @@
 * Шифрование - bcryptjs
 * Логирование - winston
 
-## URL сайта:
-* (https://mesto-ilyap.students.nomoredomains.rocks)
-
-## IP сайта:
-* (51.250.11.126)
-
-## Ссылка на Yandex.cloud (https):
-* [Ссылка на страницу](https://mesto-ilyap.students.nomoredomains.rocks)
-
-## Ссылка на Yandex.cloud (http):
-* [Ссылка на страницу](http://mesto-ilyap.students.nomoredomains.rocks)
-
-## Ссылка на Yandex.cloud (IP):
-* [Ссылка на страницу](51.250.11.126)
+## URL сайта (на Yandex.cloud):
+* http://mesto-ilyap.students.nomoredomains.rocks
+* https://mesto-ilyap.students.nomoredomains.rocks
+## IP сайта (на Yandex.cloud):
+* 51.250.11.126
