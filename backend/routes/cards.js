@@ -17,8 +17,7 @@ router.post('/', celebrate({
     {
       name: Joi.string().trim().required().min(2)
         .max(30),
-      link: Joi.string().trim().required().string()
-        .pattern(regex),
+      link: Joi.string().trim().required().pattern(regex),
     },
   ),
 }), createCard);

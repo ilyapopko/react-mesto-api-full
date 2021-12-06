@@ -36,8 +36,7 @@ router.patch('/me', celebrate({
 router.patch('/me/avatar', celebrate({
   body: Joi.object().keys(
     {
-      avatar: Joi.string().trim().required().string()
-        .pattern(regex),
+      avatar: Joi.string().trim().required().pattern(regex),
     },
   ),
 }), updateAvatar);

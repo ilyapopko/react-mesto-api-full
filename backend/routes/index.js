@@ -24,7 +24,7 @@ router.post('/signup', celebrate({
       password: Joi.string().trim().required(),
       name: Joi.string().trim().min(2).max(30),
       about: Joi.string().trim().min(2).max(30),
-      avatar: Joi.string().trim().string().pattern(regex),
+      avatar: Joi.string().trim().pattern(regex),
     },
   ),
 }), createUser);
