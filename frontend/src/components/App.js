@@ -15,9 +15,11 @@ import Login from './Login';
 import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
 
-import { apiServer } from "../utils/Api";
-import { auth } from "../utils/Auth";
+import { server } from "../utils/Server";
+
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+
+import { getCookie } from "../utils/utils"
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -41,7 +43,7 @@ function App() {
 
   useEffect(() => {
     setIsAuthChecking(true);
-    auth.checkToken()
+    server.checkToken()
       .then((userData) => {
         setCurrentUser(userData);
         setIsLoggedIn(true);
@@ -56,7 +58,7 @@ function App() {
   useEffect(() => {
     if (isLoggedIn) {
       setIsCardsLoading(true);
-      apiServer.getAllCards()
+      server.getAllCards()
         .then((cardData) => {
           setCards(cardData);
         })
@@ -68,7 +70,7 @@ function App() {
   }, [isLoggedIn]);
 
   const handleLogin = ({ email, password }) => {
-    auth.authorize({ email, password })
+    server.authorize({ email, password })
       .then((data) => {
         setCurrentUser(data.user);
         setIsLoggedIn(true);
@@ -79,7 +81,7 @@ function App() {
   };
 
   const handleRegister = ({ email, password }) => {
-    auth.register({ email, password })
+    server.register({ email, password })
       .then(() => {
         history.push('/sign-in');
         setToolTipMessage({ message: "Вы успешно зарегистрировались!", fail: false });
@@ -88,8 +90,7 @@ function App() {
   };
 
   const handleLogout = () => {
-    // localStorage.removeItem("token");
-    auth.logout()
+    server.logout()
       .then((data) => {
         console.log(data.message);
         setToolTipMessage({ message: data.message, fail: false })
@@ -131,7 +132,7 @@ function App() {
 
   const handleUpdateUser = async (data) => {
     try {
-      const updateData = await apiServer.updateUserProperties(data);
+      const updateData = await server.updateUserProperties(data);
       setCurrentUser((oldCurrentUser) => ({
         ...oldCurrentUser,
         name: updateData.name,
@@ -145,7 +146,7 @@ function App() {
 
   const handleUpdateAvatar = async (link) => {
     try {
-      const updateData = await apiServer.updateUserAvatar(link);
+      const updateData = await server.updateUserAvatar(link);
       setCurrentUser((oldCurrentUser) => ({
         ...oldCurrentUser,
         avatar: updateData.avatar,
@@ -179,7 +180,7 @@ function App() {
     // от сервера для ускорения реакции интерфейса
     toggleLikeCard(card, isLiked);
     try {
-      await apiServer.setLikeCard(isLiked, card._id);
+      await server.setLikeCard(isLiked, card._id);
     } catch (err) {
       showError(err);
       //обратим действие установочной функции так как сервер вернул ошибку
@@ -198,13 +199,13 @@ function App() {
   }
 
   const handleAddCard = async (data) => {
-    const newCard = await apiServer.addCard(data);
+    const newCard = await server.addCard(data);
     setCards([newCard, ...cards]);
     handleCloseAllPopups();
   }
 
   const handleSaveCard = (data, card) => {
-    return apiServer.updateCard({ id: card._id, name: data.name })
+    return server.updateCard({ id: card._id, name: data.name })
       .then((updateData) => {
         card.name = updateData.name;
         handleCloseAllPopups();
@@ -214,7 +215,7 @@ function App() {
 
   const handleDeleteCardSubmit = async (card) => {
     try {
-      await apiServer.deleteCard(card._id);
+      await server.deleteCard(card._id);
       setCards((cards) => {
         return cards.filter((c) => c._id !== card._id);
       });
@@ -235,7 +236,7 @@ function App() {
           onLogout={handleLogout}
         />
         <Switch>
-          <ProtectedRoute isChecking={isAuthChecking} isLoggedIn={isLoggedIn} path="/" exact>
+          <ProtectedRoute isChecking={isAuthChecking} isLoggedIn={isLoggedIn} exact path="/">
             <Main cards={cards} card={selectedCard} isCardsLoading={isCardsLoading}
               onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick}
               onAddCard={handleAddCardClick} onCardClick={handleCardClick} onCardLike={handleCardLike}
@@ -253,14 +254,14 @@ function App() {
               onClose={handleCloseAllPopups} />
             <InfoTooltip isOpen={!!tooltipMessage} onClose={handleCloseAllPopups} message={tooltipMessage} />
           </ProtectedRoute>
-          <Route path="/sign-in" exact>
+          <Route path="/sign-in">
             {isLoggedIn ? (
               <Redirect to="/" />
             ) : (
               <Login onSubmit={handleLogin} />
             )}
           </Route>
-          <Route path="/sign-up" exact>
+          <Route path="/sign-up">
             {isLoggedIn ? (
               <Redirect to="/" />
             ) : (

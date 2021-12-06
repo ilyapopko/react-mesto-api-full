@@ -1,6 +1,6 @@
+const { NODE_ENV, JWT_SECRET } = process.env;
 const jwt = require('jsonwebtoken');
 const { CastomizedError, errorCodes, errorMessages } = require('../utils/errors');
-const { SECRET_KEY } = require('../utils/constants');
 
 const auth = (req, res, next) => {
   const { token } = req.cookies;
@@ -11,7 +11,7 @@ const auth = (req, res, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, SECRET_KEY);
+    payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key');
   } catch (err) {
     throw new CastomizedError(errorCodes.unauthorized, errorMessages.badToken);
   }

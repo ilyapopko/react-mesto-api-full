@@ -52,7 +52,10 @@ userSchema.statics.findUserByCredentials = function findUserByCredentials(email,
       return bcrypt.compare(password, user.password)
         .then((matched) => {
           if (!matched) {
-            return Promise.reject(new CastomizedError(errorCodes.unauthorized, errorMessages.badLogin));
+            return Promise.reject(new CastomizedError(
+              errorCodes.unauthorized,
+              errorMessages.badLogin,
+            ));
           }
           return user; // теперь user доступен
         });

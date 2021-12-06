@@ -1,8 +1,8 @@
+const { NODE_ENV, JWT_SECRET } = process.env;
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const { CastomizedError, errorCodes, errorMessages } = require('../utils/errors');
-const { SECRET_KEY } = require('../utils/constants');
 
 const dataUser = (user) => ({
   name: user.name,
@@ -18,12 +18,14 @@ const login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign({
         _id: user._id,
-      }, SECRET_KEY, {
+      }, NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key', {
         expiresIn: '7d',
       });
       res.cookie('token', token, {
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
+        sameSite: 'none',
+        secure: true,
       }).send({
         token,
         user: dataUser(user),
@@ -42,6 +44,8 @@ const logout = (req, res, next) => {
   try {
     res.clearCookie('token', {
       httpOnly: true,
+      sameSite: 'none',
+      secure: true,
     })
       .send({
         message: 'Вы вышли из профиля',

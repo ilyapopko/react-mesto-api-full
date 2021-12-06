@@ -14,9 +14,10 @@ const dataCard = (card) => ({
 
 const getCards = (req, res, next) => {
   Card.find({
-  }).sort({
-    createdAt: -1,
   })
+    .sort({
+      createdAt: -1,
+    })
     .populate(['owner', 'likes'])
     .then((cards) => res.send(cards.map((card) => dataCard(card))))
     .catch(next);

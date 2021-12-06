@@ -9,6 +9,8 @@ const AddPlacePopup = ({ isOpen, onClose, onSaveCard }) => {
 
   useEffect(() => {
     resetForm();
+    // eslint-disable-next-line
+    setIsSubmitDisabled(true);
   }, [resetForm, isOpen]);
 
   useEffect(() => {

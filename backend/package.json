@@ -1,5 +1,5 @@
 {
-  "name": "express-mesto",
+  "name": "mesto-server",
   "version": "1.0.0",
   "description": "Practical work No. 13 for Yandex.Workshop",
   "main": "app.js",
@@ -10,26 +10,28 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ilyapopko/express-mesto.git"
+    "url": "git+https://github.com/ilyapopko/react-mesto-api-full.git"
   },
   "author": "Ilya Popko",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ilyapopko/express-mesto/issues"
+    "url": "https://github.com/ilyapopko/react-mesto-api-full/issues"
   },
-  "homepage": "https://github.com/ilyapopko/express-mesto#readme",
+  "homepage": "/",
   "dependencies": {
-    "-": "^0.0.1",
     "bcryptjs": "^2.4.3",
     "celebrate": "^15.0.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "express-winston": "^4.2.0",
     "joi": "^17.4.2",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.1.4",
     "mongoose": "^6.0.12",
-    "validator": "^13.7.0"
+    "validator": "^13.7.0",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "eslint": "^8.2.0",
