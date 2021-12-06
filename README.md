@@ -23,4 +23,4 @@
 * http://mesto-ilyap.students.nomoredomains.rocks
 * https://mesto-ilyap.students.nomoredomains.rocks
 ## IP сайта (на Yandex.cloud):
-* 51.250.11.126
+* [51.250.11.126](51.250.11.126)
