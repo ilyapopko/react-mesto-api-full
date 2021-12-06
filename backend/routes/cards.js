@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Joi, celebrate } = require('celebrate');
-
+const { regex } = require('../utils/validation');
 const {
   getCards,
   createCard,
@@ -17,7 +17,8 @@ router.post('/', celebrate({
     {
       name: Joi.string().trim().required().min(2)
         .max(30),
-      link: Joi.string().trim().uri().required(),
+      link: Joi.string().trim().required().string()
+        .pattern(regex),
     },
   ),
 }), createCard);
@@ -25,7 +26,7 @@ router.post('/', celebrate({
 router.patch('/:cardId', celebrate({
   params: Joi.object().keys(
     {
-      cardId: Joi.string().alphanum().length(24),
+      cardId: Joi.string().alphanum().length(24).hex(),
     },
   ),
   body: Joi.object().keys(
@@ -39,7 +40,7 @@ router.patch('/:cardId', celebrate({
 router.delete('/:cardId', celebrate({
   params: Joi.object().keys(
     {
-      cardId: Joi.string().alphanum().length(24),
+      cardId: Joi.string().alphanum().length(24).hex(),
     },
   ),
 }), deleteCard);
@@ -47,7 +48,7 @@ router.delete('/:cardId', celebrate({
 router.put('/:cardId/likes', celebrate({
   params: Joi.object().keys(
     {
-      cardId: Joi.string().alphanum().length(24),
+      cardId: Joi.string().alphanum().length(24).hex(),
     },
   ),
 }), likeCard);
@@ -55,7 +56,7 @@ router.put('/:cardId/likes', celebrate({
 router.delete('/:cardId/likes', celebrate({
   params: Joi.object().keys(
     {
-      cardId: Joi.string().alphanum().length(24),
+      cardId: Joi.string().alphanum().length(24).hex(),
     },
   ),
 }), dislikeCard);

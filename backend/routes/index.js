@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
+const { regex } = require('../utils/validation');
 
 const auth = require('../middlewares/auth');
 const { login, logout, createUser } = require('../controllers/users');
@@ -23,7 +24,7 @@ router.post('/signup', celebrate({
       password: Joi.string().trim().required(),
       name: Joi.string().trim().min(2).max(30),
       about: Joi.string().trim().min(2).max(30),
-      avatar: Joi.string().trim().uri(),
+      avatar: Joi.string().trim().string().pattern(regex),
     },
   ),
 }), createUser);
