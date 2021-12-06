@@ -19,8 +19,6 @@ import { server } from "../utils/Server";
 
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-import { getCookie } from "../utils/utils"
-
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
