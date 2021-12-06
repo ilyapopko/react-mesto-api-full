@@ -31,13 +31,7 @@ const login = (req, res, next) => {
         user: dataUser(user),
       });
     })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new CastomizedError(errorCodes.badRequest, err.message));
-      } else {
-        next(err);
-      }
-    });
+    .catch(next);
 };
 
 const logout = (req, res, next) => {
@@ -90,7 +84,7 @@ const createUser = (req, res, next) => {
     .catch((err) => {
       if (err.code === 11000) {
         next(new CastomizedError(errorCodes.conflict, errorMessages.conflictEmail));
-      } else if (err.name === 'CastError') {
+      } else if (err.name === 'ValidationError') {
         next(new CastomizedError(errorCodes.badRequest, err.message));
       } else {
         next(err);
@@ -110,7 +104,7 @@ const updateProfile = (req, res, next) => {
     })
     .then((user) => res.send(dataUser(user)))
     .catch((err) => {
-      if (err.name === 'CastError') {
+      if (err.name === 'ValidationError') {
         next(new CastomizedError(errorCodes.badRequest, err.message));
       } else {
         next(err);
@@ -130,7 +124,7 @@ const updateAvatar = (req, res, next) => {
     })
     .then((user) => res.send(dataUser(user)))
     .catch((err) => {
-      if (err.name === 'CastError') {
+      if (err.name === 'ValidationError') {
         next(new CastomizedError(errorCodes.badRequest, err.message));
       } else {
         next(err);

@@ -35,7 +35,7 @@ const createCard = (req, res, next) => {
       .populate(['owner', 'likes'])
       .then((cardread) => res.send(dataCard(cardread))))
     .catch((err) => {
-      if (err.name === 'CastError') {
+      if (err.name === 'ValidationError') {
         next(new CastomizedError(errorCodes.badRequest, err.message));
       } else {
         next(err);
@@ -105,7 +105,7 @@ const updateCard = (req, res, next) => {
     .populate(['owner', 'likes'])
     .then((card) => res.send(dataCard(card)))
     .catch((err) => {
-      if (err.name === 'CastError') {
+      if (err.name === 'ValidationError') {
         next(new CastomizedError(errorCodes.badRequest, err.message));
       } else {
         next(err);
